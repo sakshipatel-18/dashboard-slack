@@ -1,0 +1,22 @@
+name: Daily dashboard to Slack
+
+on:
+  schedule:
+    - cron: "30 3 * * *"   # 9:00 AM IST (03:30 UTC)
+  workflow_dispatch: {}      # lets you run it manually from the Actions tab
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install playwright
+      - run: npx playwright install --with-deps chromium
+      - run: node screenshot.js
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
