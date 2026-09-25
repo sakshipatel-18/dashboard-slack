@@ -13,7 +13,7 @@ const CHANNEL = process.env.SLACK_CHANNEL_ID;
 // Emulate that: wider layout viewport, and a matching pixel ratio so the image stays sharp.
 const WINDOW_WIDTH = 1440;
 const WINDOW_HEIGHT = 900;
-const ZOOM = 0.8;
+const ZOOM = 0.75;
 
 async function screenshot() {
   const browser = await chromium.launch();
